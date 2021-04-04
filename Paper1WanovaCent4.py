@@ -5,12 +5,14 @@ Created on Fri May  1 13:09:57 2020
 @author: jwilliams
 """
 
+from McGinnityBT1D import BT1D
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import chi2
 from scipy.stats import rankdata
 
 def wanovaBoxPlot(Signal):
+    R = [];
     x = int(np.shape(Signal)[0]); y = int(np.shape(Signal)[1])
     sigma = np.std(Signal)
     diff = np.zeros([x,x])
@@ -21,9 +23,10 @@ def wanovaBoxPlot(Signal):
              if j>i:
                  #temp = UniThresh(Signal[i]-Signal[j])
                  temp = BT1D(Signal[i]-Signal[j]);
-                 cA = np.sum(((temp[0][0]/sigma)**2));
+                 #R.append(redux)
+                 cA = np.sum(((temp[0]/sigma)**2));
                  try:
-                     cD =  np.sum(((np.hstack(temp[0][1:])/sigma)**2));
+                     cD =  np.sum(((np.hstack(temp[1])/sigma)**2));
                  except:
                      cD = 0
                  kappN = cA + cD;         
@@ -54,7 +57,8 @@ def wanovaBoxPlot(Signal):
         plt.plot(Signal[np.nonzero(b)[0]].T, color='darkgray'); plt.plot(Signal[np.nonzero(W)[0]].T,"--",color="darkgray"); plt.plot(Signal[np.nonzero(O)[0]].T,":",color="lightgray");
     except:
         plt.plot(Signal[np.nonzero(b)[0]].T, color='darkgray'); plt.plot(Signal[np.nonzero(W)[0]].T,"--",color="darkgray"); 
-    return diff, W, b, O, chi_stat
+    #return diff, W, b, O, chi_stat
+    return O
    
 def genBox(Signal, diff):
     d = [rankdata(diff[:,j]) for j in range(int(np.shape(Signal)[0]))]
