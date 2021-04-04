@@ -6,13 +6,14 @@ Brings in a signal and thresholds it
 """
 import pywt
 import numpy as np 
-
+import copy
 
 def BT1D(Signal):
     E, O = Split1D(Signal)
     w = pywt.Wavelet('db6')
     mL = pywt.dwt_max_level(np.size(E), filter_len=w.dec_len)
     coeffsF = pywt.wavedec(Signal,'db6',level=mL)
+    coeffsB = copy.deepcopy(coeffsF)
     coeffsE = pywt.wavedec(E,'db6')
     coeffsO = pywt.wavedec(O,'db6')
     mini = []
@@ -24,7 +25,10 @@ def BT1D(Signal):
             Obj.append(score)
         mini.append(np.argmin(Obj))
     coeffs, df = FRecon(coeffsF,  mini)
-    return pywt.waverec(coeffs,'db6'), df;
+    #z1=np.count_nonzero(coeffsB)
+    #redux = (z1-np.count_nonzero(np.hstack(coeffs)))/np.count_nonzero(np.hstack(coeffsB))
+    #return pywt.waverec(coeffs,'db6'), df;
+    return coeffs
 
 def WFRecon(Signal, T):
     c = pywt.wavedec(Signal,'db6',level=2)
@@ -71,6 +75,7 @@ def Split1D(Signal):
     E = Signal[::2]
     O = Signal[1::2]
     return E, O;
+
 
 
 
