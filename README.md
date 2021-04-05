@@ -14,3 +14,7 @@ Please download and run, Run all of the py files, you may have to download some 
 
 This code can be used for comparison of any dyadic functional set just (from Paper1WanovaCent4 import wanovaBoxPlot) 
 Then Outliers = wanovaBoxPlot(Your Signal) 
+
+To see an illustration of each test case call (plt.plot(signal.T))
+To see an illustation of each box plot call (Outliers = wanovaBoxPlot(signal)
+
