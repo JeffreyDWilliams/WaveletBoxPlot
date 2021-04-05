@@ -11,7 +11,6 @@ import pywt
 import numpy as np 
 from Paper1WanovaCent4 import wanovaBoxPlot 
 
-fig, ax = plt.subplots(5,1)
 
 
 #Import the static samples from Sun and Genton simulation study
@@ -28,20 +27,26 @@ e3 = np.asarray(pd.read_excel(path, sheet_name = 'e3', header = None))
 e4 = np.asarray(pd.read_excel(path, sheet_name = 'e4', header = None))
 e5 = np.asarray(pd.read_excel(path, sheet_name = 'e5', header = None))
 
-#plot model 1, generate box plot, report error
-ax[0].plot(S1.T); O = wanovaBoxPlot(S1); e = 100-np.sum(O); print(e, "of the 100 curves are classified correctly")
+
+#Plot the models
+plt.plot(S1.T);
+plt.plot(S2.T);
+plt.plot(S3.T);
+plt.plot(S4.T);
+plt.plot(S5.T);
+
+#generate box plot, report error
+O = wanovaBoxPlot(S1); e = 100-np.sum(O); print(e, "of the 100 curves are classified correctly")
 
 
-#plot model 2, generate box plot, report error
-ax[1].plot(S2.T); O = wanovaBoxPlot(S2); e = 100-np.sum(e2.T-O); print(e, "of the 100 curves are classified correctly")
+#generate box plot, report error
+O = wanovaBoxPlot(S2); e = 100-np.sum(e2.T-O); print(e, "of the 100 curves are classified correctly")
 
-#plot model 3, generate box plot, report error
-ax[2].plot(S3.T); O = wanovaBoxPlot(S3); e = 100-np.sum(e3.T-O); print(e, "of the 100 curves are classified correctly")
+#generate box plot, report error
+O = wanovaBoxPlot(S3); e = 100-np.sum(e3.T-O); print(e, "of the 100 curves are classified correctly")
 
-#plot model 4, generate box plot, report error
-ax[3].plot(S4.T); O = wanovaBoxPlot(S4); e = 100-np.sum(e4.T-O);  print(e, "of the 100 curves are classified correctly")
+#generate box plot, report error
+O = wanovaBoxPlot(S4); e = 100-np.sum(e4.T-O);  print(e, "of the 100 curves are classified correctly")
 
-#plot model 5, generate box plot, report error
-ax[4].plot(S5.T); O = wanovaBoxPlot(S5); e = 100-np.sum(e5.T-O); print(e, "of the 100 curves are classified correctly")
-
-plt.show()
+#generate box plot, report error
+O = wanovaBoxPlot(S5); e = 100-np.sum(e5.T-O); print(e, "of the 100 curves are classified correctly")
